@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Sahil Bagavan — Final-year Computer Science undergraduate. Machine learning, Linux systems, full-stack development." />
+  <title>Sahil Bagavan — Computer Science</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0e14;
+      --bg-elev: #11161d;
+      --bg-card: #131922;
+      --border: #1f2a37;
+      --border-bright: #2a3a4d;
+      --text: #e6edf3;
+      --text-dim: #8b949e;
+      --text-faint: #6e7681;
+      --accent: #7ee787;
+      --accent-dim: #4cb963;
+      --accent-glow: rgba(126, 231, 135, 0.15);
+      --blue: #58a6ff;
+      --purple: #d2a8ff;
+      --orange: #ffa657;
+      --pink: #ff7b72;
+      --mono: 'JetBrains Mono', 'SF Mono', Menlo, Monaco, Consolas, monospace;
+      --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    /* subtle grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(126, 231, 135, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(126, 231, 135, 0.025) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: 0;
+      mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 32px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ============ NAV ============ */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(10, 14, 20, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      padding: 16px 0;
+    }
+
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: var(--mono);
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--accent);
+    }
+    .logo .bracket { color: var(--text-dim); }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    .nav-links .num {
+      color: var(--accent);
+      margin-right: 6px;
+    }
+
+    /* ============ HERO ============ */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 100px 0 40px;
+    }
+
+    .hero-greeting {
+      font-family: var(--mono);
+      color: var(--accent);
+      font-size: 14px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-greeting::before {
+      content: '$';
+      color: var(--text-faint);
+    }
+
+    .hero h1 {
+      font-size: clamp(40px, 7vw, 72px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .hero h2 {
+      font-size: clamp(24px, 4.5vw, 42px);
+      font-weight: 600;
+      color: var(--text-dim);
+      line-height: 1.1;
+      margin-bottom: 28px;
+    }
+
+    .hero .cursor {
+      display: inline-block;
+      width: 3px;
+      height: 0.9em;
+      background: var(--accent);
+      margin-left: 4px;
+      vertical-align: text-bottom;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+
+    .hero-bio {
+      max-width: 640px;
+      color: var(--text-dim);
+      font-size: 17px;
+      margin-bottom: 36px;
+    }
+
+    .hero-bio strong { color: var(--text); font-weight: 500; }
+
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      font-family: var(--mono);
+      font-size: 14px;
+      padding: 14px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--accent);
+    }
+
+    .btn-primary {
+      background: var(--accent-glow);
+      color: var(--accent);
+    }
+    .btn-primary:hover {
+      background: rgba(126, 231, 135, 0.25);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-dim);
+      border-color: var(--border-bright);
+    }
+    .btn-secondary:hover {
+      color: var(--text);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* ============ SECTIONS ============ */
+    section {
+      padding: 100px 0;
+      position: relative;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 48px;
+      font-size: clamp(26px, 4vw, 32px);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .section-title .num {
+      font-family: var(--mono);
+      color: var(--accent);
+      font-size: 0.7em;
+      font-weight: 500;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--border-bright), transparent);
+      margin-left: 16px;
+      max-width: 300px;
+    }
+
+    /* ============ ABOUT ============ */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 56px;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--text-dim);
+      margin-bottom: 16px;
+      font-size: 16px;
+    }
+    .about-text p strong { color: var(--text); font-weight: 500; }
+    .about-text code {
+      font-family: var(--mono);
+      font-size: 0.88em;
+      color: var(--accent);
+      background: var(--accent-glow);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .info-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      font-family: var(--mono);
+      font-size: 13px;
+      position: relative;
+    }
+
+    .info-card::before {
+      content: '~/about.json';
+      position: absolute;
+      top: -10px;
+      left: 16px;
+      background: var(--bg);
+      padding: 0 8px;
+      font-size: 11px;
+      color: var(--text-faint);
+    }
+
+    .info-card .row { margin-bottom: 10px; display: flex; gap: 8px; }
+    .info-card .key { color: var(--purple); }
+    .info-card .punct { color: var(--text-faint); }
+    .info-card .val { color: var(--orange); flex: 1; word-break: break-word; }
+    .info-card .val.string::before,
+    .info-card .val.string::after { content: '"'; color: var(--text-faint); }
+
+    /* ============ EXPERIENCE ============ */
+    .timeline {
+      position: relative;
+      padding-left: 28px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 8px;
+      bottom: 8px;
+      width: 1px;
+      background: var(--border-bright);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 40px;
+      padding-left: 16px;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -28px;
+      top: 6px;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-glow);
+    }
+
+    .timeline-item h3 {
+      font-size: 19px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .timeline-item .company {
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .timeline-item .date {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--text-faint);
+      margin-bottom: 12px;
+    }
+
+    .timeline-item ul {
+      list-style: none;
+      color: var(--text-dim);
+      font-size: 15px;
+    }
+
+    .timeline-item ul li {
+      padding-left: 22px;
+      position: relative;
+      margin-bottom: 8px;
+    }
+
+    .timeline-item ul li::before {
+      content: '▹';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 14px;
+    }
+
+    /* ============ EDUCATION ============ */
+    .edu-grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    .edu-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px 28px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .edu-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .edu-card .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .edu-card h3 {
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    .edu-card .date {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--text-faint);
+    }
+
+    .edu-card .institution {
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    .edu-card .details {
+      color: var(--text-dim);
+      font-size: 14px;
+    }
+
+    /* ============ SKILLS ============ */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    .skill-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .skill-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .skill-card h3 {
+      font-family: var(--mono);
+      color: var(--accent);
+      font-size: 14px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .skill-card h3::before {
+      content: '#';
+      color: var(--text-faint);
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .skill-tag {
+      font-family: var(--mono);
+      font-size: 12px;
+      padding: 5px 11px;
+      background: var(--bg-elev);
+      border: 1px solid var(--border-bright);
+      border-radius: 4px;
+      color: var(--text-dim);
+      transition: all 0.2s;
+    }
+    .skill-tag:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* ============ PROJECTS ============ */
+    .project-grid {
+      display: grid;
+      gap: 28px;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 32px;
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      background: linear-gradient(180deg, var(--accent), transparent);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .project-card:hover::before { opacity: 1; }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .project-card h3 {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .project-card .date {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--text-faint);
+    }
+
+    .project-card .tagline {
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+
+    .project-card .description {
+      color: var(--text-dim);
+      font-size: 15px;
+      margin-bottom: 16px;
+    }
+
+    .project-card .description p { margin-bottom: 10px; }
+
+    .project-card .tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 16px;
+    }
+
+    .project-card .tech span {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-faint);
+      padding: 3px 9px;
+      background: var(--bg-elev);
+      border-radius: 4px;
+    }
+
+    /* ============ CONTACT ============ */
+    .contact {
+      text-align: center;
+      padding: 120px 0;
+    }
+
+    .contact .pre-title {
+      font-family: var(--mono);
+      color: var(--accent);
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .contact h2 {
+      font-size: clamp(36px, 6vw, 56px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+
+    .contact p {
+      max-width: 540px;
+      margin: 0 auto 36px;
+      color: var(--text-dim);
+      font-size: 17px;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* ============ FOOTER ============ */
+    footer {
+      padding: 32px 0;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      color: var(--text-faint);
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+
+    footer .heart { color: var(--pink); }
+
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 768px) {
+      .container { padding: 0 20px; }
+      .nav-links { display: none; }
+      nav .container { justify-content: center; }
+      .about-grid { grid-template-columns: 1fr; gap: 32px; }
+      section { padding: 70px 0; }
+      .hero { padding: 80px 0 40px; }
+      .timeline-item { padding-left: 8px; }
+      .project-card { padding: 24px; }
+    }
+
+    /* ============ ANIMATIONS ============ */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <div class="logo"><span class="bracket">&lt;</span>sahil<span class="bracket">/&gt;</span></div>
+      <ul class="nav-links">
+        <li><a href="#about"><span class="num">01.</span>about</a></li>
+        <li><a href="#experience"><span class="num">02.</span>experience</a></li>
+        <li><a href="#education"><span class="num">03.</span>education</a></li>
+        <li><a href="#skills"><span class="num">04.</span>skills</a></li>
+        <li><a href="#projects"><span class="num">05.</span>projects</a></li>
+        <li><a href="#contact"><span class="num">06.</span>contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-greeting">whoami</div>
+      <h1>Sahil Bagavan.</h1>
+      <h2>I build at the edges of ML, systems, and the web.<span class="cursor"></span></h2>
+      <p class="hero-bio">
+        Final-year Computer Science undergraduate at the <strong>University of Derby</strong> (predicted <strong>First</strong>),
+        with hands-on experience across machine learning, Linux kernel programming, and full-stack development.
+        Currently shipping a split <strong>VQ-VAE</strong> for industrial anomaly detection with an aerospace industry partner.
+      </p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">view my work →</a>
+        <a href="mailto:Sahil2005ib@gmail.com" class="btn btn-secondary">get in touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about">
+    <div class="container">
+      <h2 class="section-title"><span class="num">01.</span>about me</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            Hi — I'm Sahil. I'm a final-year Computer Science student who genuinely enjoys working
+            across the stack: I'm equally happy <strong>debugging kernel code</strong>, <strong>training
+            neural networks</strong>, or <strong>shipping a Django app</strong>.
+          </p>
+          <p>
+            My current focus is <strong>Edge AI</strong>. For my dissertation I'm deploying a split
+            <code>VQ-VAE</code> for industrial anomaly detection with an aerospace partner — the encoder
+            runs in an iPhone PWA and the decoder on a Flask server, sending only ~100 bytes of codebook
+            indices per inference.
+          </p>
+          <p>
+            Recent work spans a Linux kernel loadable module with mutex-protected device interface,
+            formal concurrency modelling in <code>CSP-M</code> with FDR, and a full-stack restaurant
+            management system in Django with MySQL, MongoDB, JWT, and AES-at-rest.
+          </p>
+          <p>
+            Outside code: ~20 hrs/week teaching Python and game dev to 9–16 year olds (<strong>560+
+            teaching hours</strong>), private tutoring GCSE/A-Level maths and physics, and playing
+            semi-pro football.
+          </p>
+        </div>
+        <div class="info-card">
+          <div class="row"><span class="key">"name"</span><span class="punct">:</span><span class="val string">Sahil Bagavan</span><span class="punct">,</span></div>
+          <div class="row"><span class="key">"role"</span><span class="punct">:</span><span class="val string">CS Undergraduate</span><span class="punct">,</span></div>
+          <div class="row"><span class="key">"university"</span><span class="punct">:</span><span class="val string">Derby (BSc Hons)</span><span class="punct">,</span></div>
+          <div class="row"><span class="key">"graduating"</span><span class="punct">:</span><span class="val string">2026</span><span class="punct">,</span></div>
+          <div class="row"><span class="key">"predicted"</span><span class="punct">:</span><span class="val string">First Class</span><span class="punct">,</span></div>
+          <div class="row"><span class="key">"location"</span><span class="punct">:</span><span class="val string">Derby, UK</span><span class="punct">,</span></div>
+          <div class="row"><span class="key">"status"</span><span class="punct">:</span><span class="val string" style="color: var(--accent);">open to opportunities</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EXPERIENCE ============ -->
+  <section id="experience">
+    <div class="container">
+      <h2 class="section-title"><span class="num">02.</span>experience</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <h3>Coding Instructor</h3>
+          <div class="company">Software Academy — NCFE-approved</div>
+          <div class="date">Aug 2024 — Present  ·  ~20 hrs/week  ·  560+ teaching hours</div>
+          <ul>
+            <li>Deliver structured Python and mathematics-integrated lessons in the UK's only NCFE-approved coding academy, adapting pacing to individual ability levels (ages 9–16).</li>
+            <li>Build lesson plans covering variables, loops, conditionals, functions, and OOP basics, plus game-based projects in pygame and Unreal Engine.</li>
+            <li>Provide technical support to students on VS Code, Python, pygame, and Unreal Engine setup across Windows and Mac.</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <h3>Professor's Assistant — Computational Mathematics</h3>
+          <div class="company">University of Derby</div>
+          <div class="date">2024 — 2025  ·  Appointed by Dr Ovidiu Bagdasar</div>
+          <ul>
+            <li>Supported first-year students on sets and relations, Boolean logic, matrices, graph theory, and number theory in both lectures and 1:1 sessions.</li>
+            <li>Guided learners through proof techniques including induction and normal forms, adapting explanations across a wide range of mathematical backgrounds.</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <h3>Private Tutor — Maths, Computing & Physics</h3>
+          <div class="company">Independent  ·  GCSE & A-Level</div>
+          <div class="date">2023 — Present  ·  50+ five-star reviews</div>
+          <ul>
+            <li>Tutor GCSE and A-Level students (Edexcel, AQA, OCR A) on topics including circles and tangents, vectors, composite functions, A-Level electricity, moments and equilibrium, and circuits.</li>
+            <li>Produce custom HTML lesson materials and answer sheets with iterative student feedback.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EDUCATION ============ -->
+  <section id="education">
+    <div class="container">
+      <h2 class="section-title"><span class="num">03.</span>education</h2>
+      <div class="edu-grid">
+        <div class="edu-card">
+          <div class="top">
+            <h3>B.Sc. (Hons) Computer Science</h3>
+            <div class="date">2023 — 2026</div>
+          </div>
+          <div class="institution">University of Derby  ·  Predicted: First</div>
+          <div class="details">
+            Year 3 modules: Dissertation, Operating Systems, Concurrency &amp; Communication, Modelling &amp; Evaluating Emerging Technologies, Frontiers in AI.
+            <br>Year 2: 1st (76%)  ·  Year 1: 1st (84%)
+          </div>
+        </div>
+
+        <div class="edu-card">
+          <div class="top">
+            <h3>BTEC Sports Science  ·  Distinction</h3>
+            <div class="date">2021 — 2023</div>
+          </div>
+          <div class="institution">Mickleover Sports, Derby</div>
+        </div>
+
+        <div class="edu-card">
+          <div class="top">
+            <h3>11 GCSEs  ·  Grades 9–7</h3>
+            <div class="date">2016 — 2021</div>
+          </div>
+          <div class="institution">Bemrose School, Derby</div>
+          <div class="details">
+            Maths (9), Computer Science (9), Chemistry (9), Physics (8), Biology (8), Art &amp; Design (8), English (7).
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SKILLS ============ -->
+  <section id="skills">
+    <div class="container">
+      <h2 class="section-title"><span class="num">04.</span>skills</h2>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <h3>languages</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">C</span>
+            <span class="skill-tag">C++</span>
+            <span class="skill-tag">Java</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">HTML/CSS</span>
+            <span class="skill-tag">Haskell</span>
+            <span class="skill-tag">Bash</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <h3>ml &amp; ai</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">PyTorch</span>
+            <span class="skill-tag">CNNs / 1D CNNs</span>
+            <span class="skill-tag">VQ-VAE</span>
+            <span class="skill-tag">Autoencoders</span>
+            <span class="skill-tag">Edge-Cloud Split Inference</span>
+            <span class="skill-tag">LLM Dialogue Systems</span>
+            <span class="skill-tag">Prompt Engineering</span>
+            <span class="skill-tag">Model Eval (F1 / latency)</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <h3>linux &amp; systems</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Kernel Loadable Modules</span>
+            <span class="skill-tag">Character Devices</span>
+            <span class="skill-tag">Mutexes</span>
+            <span class="skill-tag">kbuild</span>
+            <span class="skill-tag">C system calls</span>
+            <span class="skill-tag">TCP/IP Sockets</span>
+            <span class="skill-tag">LAPACK</span>
+            <span class="skill-tag">Docker</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <h3>formal methods</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">CSP-M</span>
+            <span class="skill-tag">FDR refinement checker</span>
+            <span class="skill-tag">Traces / deadlock-freedom</span>
+            <span class="skill-tag">Mutual exclusion algorithms</span>
+            <span class="skill-tag">Shared-memory reasoning</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <h3>web &amp; databases</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Django</span>
+            <span class="skill-tag">Flask</span>
+            <span class="skill-tag">REST APIs</span>
+            <span class="skill-tag">JWT auth</span>
+            <span class="skill-tag">AES encryption</span>
+            <span class="skill-tag">MySQL</span>
+            <span class="skill-tag">MongoDB</span>
+            <span class="skill-tag">PWAs</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <h3>tools &amp; workflow</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">VS Code</span>
+            <span class="skill-tag">Jupyter</span>
+            <span class="skill-tag">Docker</span>
+            <span class="skill-tag">Azure VMs</span>
+            <span class="skill-tag">Agile / Kanban</span>
+            <span class="skill-tag">Unreal Engine 5</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROJECTS ============ -->
+  <section id="projects">
+    <div class="container">
+      <h2 class="section-title"><span class="num">05.</span>projects</h2>
+      <div class="project-grid">
+
+        <div class="project-card">
+          <div class="project-header">
+            <h3>Edge AI Anomaly Detection — Dissertation</h3>
+            <div class="date">2025 — 2026</div>
+          </div>
+          <div class="tagline">Split VQ-VAE  ·  Aerospace industry partner (NDA)</div>
+          <div class="description">
+            <p>Designed and trained a Vector-Quantised Variational Autoencoder with a ResNet18 encoder and EMA-updated codebook for unsupervised anomaly detection across three datasets: industry turbine blades, MVTec AD metal nut, and a custom dataset.</p>
+            <p>Built a split edge-cloud architecture — encoder runs in an iPhone PWA, decoder on a Flask server. Only ~100 bytes of codebook indices are transmitted per inference, achieving very high compression ratios versus raw image transfer.</p>
+            <p>Developed the full stack end-to-end: dataset acquisition and labelling, PyTorch training pipeline, REST API in Flask, and the PWA front-end. Benchmarked against a single-device baseline; methodology grounded in current VQ-VAE and split-computing literature (van den Oord, Razavi, Matsubara, BottleFit, FrankenSplit).</p>
+          </div>
+          <div class="tech">
+            <span>PyTorch</span><span>VQ-VAE</span><span>ResNet18</span><span>Flask</span><span>PWA</span><span>REST</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <h3>Linux Kernel Loadable Module</h3>
+            <div class="date">2025 — 2026</div>
+          </div>
+          <div class="tagline">Operating Systems portfolio  ·  Kernel-space C</div>
+          <div class="description">
+            <p>Built a Linux kernel loadable module exposing a <code style="font-family:var(--mono);color:var(--accent);">/dev/task8</code> character device for in-kernel string processing, with mutex-protected concurrent access, static buffers, and <code style="font-family:var(--mono);color:var(--accent);">class_create</code>/<code style="font-family:var(--mono);color:var(--accent);">device_create</code> registration. Stress-tested across 1,000 concurrent operations with zero data corruption.</p>
+            <p>Earlier assessments in the same module: a C client–server application over TCP/IP sockets with tcpdump-verified packet evidence; compiled and benchmarked LAPACK from source on Linux native, Linux Docker, and Mac Docker, solving a personalised 5×5 SLAE; and Bash shell scripts for OS resource monitoring.</p>
+          </div>
+          <div class="tech">
+            <span>C</span><span>kbuild</span><span>Mutexes</span><span>TCP/IP</span><span>tcpdump</span><span>LAPACK</span><span>Docker</span><span>Bash</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <h3>Formal Concurrency Modelling in CSP-M</h3>
+            <div class="date">2025 — 2026</div>
+          </div>
+          <div class="tagline">Concurrency &amp; Communication  ·  FDR refinement checker</div>
+          <div class="description">
+            <p>Built a CSP-M model of a banking system capturing concurrent account access, balance invariants, and non-determinism; verified safety properties via traces refinement in FDR.</p>
+            <p>Modelled Dekker's mutual exclusion algorithm in CSP-M and used FDR to expose deadlock failures introduced by simulated compiler optimisations on the shared flag and turn variables — demonstrating how subtle re-orderings break correctness in shared-memory concurrency.</p>
+          </div>
+          <div class="tech">
+            <span>CSP-M</span><span>FDR</span><span>Formal Verification</span><span>Dekker's Algorithm</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <h3>ECG Wearable Monitoring</h3>
+            <div class="date">2025 — 2026</div>
+          </div>
+          <div class="tagline">Emerging Technologies  ·  1D CNN arrhythmia classifier</div>
+          <div class="description">
+            <p>Critical evaluation of remote ECG monitoring wearables for chronic heart patients. Positioned the technology on the Gartner Hype Cycle (Slope of Enlightenment) and assessed opportunities, risks, and ethical considerations across clinical reliability, data integration, and economic feasibility.</p>
+            <p>Built a 1D Convolutional Neural Network in PyTorch to classify arrhythmias from the MIT-BIH open ECG dataset, evaluating detection accuracy, latency, and false-alarm rate as proxies for clinical viability.</p>
+          </div>
+          <div class="tech">
+            <span>PyTorch</span><span>1D CNN</span><span>MIT-BIH</span><span>Academic Poster</span><span>Business Report</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <h3>LLM-Based Dialogue System</h3>
+            <div class="date">2025 — 2026</div>
+          </div>
+          <div class="tagline">Frontiers in AI  ·  Conversational chatbot</div>
+          <div class="description">
+            <p>Implemented a Python-based dialogue system in Jupyter, integrating a large language model for natural-language understanding and response generation, with prompt engineering and conversation-state handling.</p>
+            <p>Evaluated dialogue quality across coherence, task success, and robustness to out-of-scope inputs, and documented limitations and ethical considerations of deploying LLM chatbots in user-facing contexts.</p>
+          </div>
+          <div class="tech">
+            <span>Python</span><span>LLMs</span><span>Prompt Engineering</span><span>Jupyter</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <h3>Full-Stack Restaurant Management System</h3>
+            <div class="date">2024 — 2025</div>
+          </div>
+          <div class="tagline">Django web app  ·  Agile / Kanban</div>
+          <div class="description">
+            <p>Led an Agile/Kanban build of a Django web app with MySQL and MongoDB backends, REST APIs, JWT authentication, AES encryption at rest, role-based dashboards, and a responsive HTML/CSS/JavaScript front-end.</p>
+          </div>
+          <div class="tech">
+            <span>Django</span><span>MySQL</span><span>MongoDB</span><span>REST</span><span>JWT</span><span>AES</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <h3>C++ / Unreal Engine 5 Game Development</h3>
+            <div class="date">2024</div>
+          </div>
+          <div class="tagline">Five playable 3D games</div>
+          <div class="description">
+            <p>Produced five playable 3D games in Unreal Engine 5, coding custom gameplay mechanics, physics, and UI with C++ classes, Blueprints, and Git version control.</p>
+          </div>
+          <div class="tech">
+            <span>C++</span><span>Unreal Engine 5</span><span>Blueprints</span><span>Git</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <div class="pre-title">06. what's next?</div>
+      <h2>Get in touch.</h2>
+      <p>
+        I'm a final-year CS student open to graduate roles, internships, and interesting projects
+        across ML, systems, and full-stack engineering. My inbox is always open — say hi.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:Sahil2005ib@gmail.com" class="btn btn-primary">Sahil2005ib@gmail.com</a>
+        <a href="tel:+447785760348" class="btn btn-secondary">+44 7785 760348</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      designed &amp; built by Sahil Bagavan  <span class="heart">·</span>  © 2026
+    </div>
+  </footer>
+
+  <script>
+    // Smooth fade-in on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('section').forEach(s => {
+      s.classList.add('fade-in');
+      observer.observe(s);
+    });
+  </script>
+</body>
+</html>
